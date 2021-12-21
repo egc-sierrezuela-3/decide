@@ -198,4 +198,4 @@ NOSE_ARGS = [
     '--with-xunit'
 ]
 
-django_heroku.settings(locals(),test_runner=False)
+django_heroku.settings(locals())
