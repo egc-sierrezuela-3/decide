@@ -85,6 +85,7 @@ APIS = {
     'voting': BASEURL,
 }
 
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
