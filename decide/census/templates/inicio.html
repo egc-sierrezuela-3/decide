@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block extrahead %}{% endblock %}
+
+{% block content %}
+
+<h2> Módulo de censos</h2>
+
+<h3> Exportación de censo</h3>
+
+<form id="formulario" method="post" action='''>{% csrf_token %}
+    {{formulario}}
+    <input type='submit' value='Buscar censos de esta votación'/>
+</form>
+
+{% if censos %}
+{% for c in censos %}
+Id del votante: {{c.voter_id}} 
+<br> 
+{% endfor %}
+
+<br>
+<button type="button" onclick="location.href='exportCSV/{{idVotacion}}'">Exportar censo</button>
+
+{% endif %}
+
+{% endblock %}
+
+{% block extrabody %}{% endblock %}

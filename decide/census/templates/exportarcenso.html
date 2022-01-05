@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block extrahead %}{% endblock %}
+
+{% block content %}
+
+<h2> Funcionalidad de censos</h2>
+
+<b> Se han encontrado los siguientes censos: </b>
+
+{% for c in censos %}
+<b> Id del votante:</b> {{c.voter_id}}
+{% endfor %}
+
+<button type="button" onclick="location.href='exportCSV/'">Exportar censo</button> 
+{% endblock %}
+
+
+        {% block extrabody %}{% endblock %}

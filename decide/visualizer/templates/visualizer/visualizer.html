@@ -17,11 +17,32 @@
         </b-navbar>
 
         <div class="voting container">
-            <h1>[[ voting.id ]] - [[ voting.name ]]</h1>
+            <div v-if="!voting.start_date">
+                <h4>Título: [[voting.name]]</h4>
+                <h6>Estado: Votación no comenzada.</h6>
+            </div>
 
-            <h2 v-if="!voting.start_date">Votación no comenzada</h2>
-            <h2 v-else-if="!voting.end_date">Votación en curso</h2>
-            <div v-else>
+            <div v-else-if="!voting.end_date">
+                <div id="head-voting-v">
+                    <h4>Título: [[voting.name]]</h4>
+                    <h6>Estado: Votación en progreso.</h6>
+ 
+                </div>
+
+                <div id="statistics-voting" class="row">
+                    <h6>Censo: {{stats_census_size}}</h6>
+                    <h6>Porcentaje de participación: {{stats_participation_ratio}}</h6>
+                    <h6>Número de votos: {{stats_voters_turnout}}</h6>
+                </div>
+                <div>
+                    <h4>Gráfico</h4>
+                    <canvas id="graficoPorcentajeVotaciones"></canvas>
+
+                </div>
+            </div>
+            <div v-else-if="voting.end_date">
+                <h4>Título: [[voting.name]]</h4>
+                <h6>Estado: Cerrada</h6>
                 <h2 class="heading">Resultados:</h2>
 
                 <table class="table table-bordered table-striped">
@@ -41,9 +62,13 @@
                     </tbody>
                 </table>
             </div>
-
         </div>
     </div>
+
+
+
+
+
 {% endblock %}
 
 {% block extrabody %}
@@ -62,5 +87,25 @@
             }
         })
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@latest/dist/Chart.min.js"></script>
+    <script>
+        var ctx = document.getElementById('graficoPorcentajeVotaciones').getContext('2d');
+        var a1="{{stats_census_size}}";
+        var a2="{{stats_voters_turnout}}";
+        
+        var chart = new Chart(ctx, {
+            type: 'doughnut',
+            data:{
+            datasets: [{
+                data: [a1,a2],
+                backgroundColor: [ 'red','blue'],
+                label: 'Estado de la votación'}],
+                labels: ['Número de personas que han votado','Número de personas que no han votado']},
+            options: {responsive: true}
+        });
+        </script>
+        
 </body>
 {% endblock %}
+
+

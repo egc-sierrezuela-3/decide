@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 import django_heroku
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -72,9 +73,21 @@ MODULES = [
 ]
 
 
-BASEURL = 'http://localhost:8000/'
+BASEURL = 'https://sierrezuela3-decide.herokuapp.com/'
 
-#APIS = {}
+APIS = {
+    'authentication': BASEURL,
+    'base': BASEURL,
+    'booth': BASEURL,
+    'census': BASEURL,
+    'mixnet': BASEURL,
+    'postproc': BASEURL,
+    'store': BASEURL,
+    'visualizer': BASEURL,
+    'voting': BASEURL,
+}
+
+
 
 
 MIDDLEWARE = [
@@ -186,6 +199,6 @@ if os.path.exists("config.jsonnet"):
 
 INSTALLED_APPS = INSTALLED_APPS + MODULES
 
-'''import django_heroku
-django_heroku.settings(locals())'''
+import django_heroku
+django_heroku.settings(locals())
 
