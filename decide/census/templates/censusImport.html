@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load i18n static %}
+
+{% block content %}
+
+<h1>Importar censo</h1>
+<br>
+<h2>Debes adjuntar un fichero csv con el formato 'id-votante,id-votacion'</h2>
+<br>
+
+
+<form id="formImportCensus" action="/admin/census/importar" method="POST" enctype="multipart/form-data" target="_self">
+
+    {% csrf_token %}
+
+    <p>
+  
+      Adjunta el fichero csv:
+  
+      <input type="file" name="nuevoCenso">
+  
+      <input type="submit" value="Cargar censo">
+  
+    </p>
+  
+  </form>
+
+<h3 id=vacioTest style=color:red>{{vacio}}</h3>
+<h3 id=importadoTest style=color:green>{{importado}}</h3>
+
+    <table>
+    <tr>
+        <td>id-votante:</td>
+
+        {% for a in votantes %}
+          <td>{{a}}</td>
+        {% endfor %}
+
+    </tr>
+    <tr>
+        <td>id-votacion:</td>
+
+        {% for e in votaciones %}
+          <td>{{e}}</td>
+        {% endfor %}
+
+    </tr>
+    
+        
+    </tr>
+    </table> 
+
+
+{% endblock %}
