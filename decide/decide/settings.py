@@ -11,8 +11,6 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
-import django_heroku
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -194,8 +192,8 @@ if os.path.exists("config.jsonnet"):
 
 INSTALLED_APPS = INSTALLED_APPS + MODULES
 
-NOSE_ARGS = [
-    '--with-xunit'
-]
-
-django_heroku.settings(locals())
+# NOSE_ARGS = [
+#     '--with-xunit'
+# ]
+# import django_heroku
+# django_heroku.settings(locals())
