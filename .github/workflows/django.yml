@@ -36,8 +36,6 @@ jobs:
         pip install codacy-coverage
     - name: Run migrations
       run: cd decide;python manage.py migrate
-    - name: Run collecstatic
-      run: cd decide;python manage.py collecstatic
     - name: Run Visualizer tests
       run: cd decide;./manage.py test visualizer/tests.py
     - name: run Census tests
