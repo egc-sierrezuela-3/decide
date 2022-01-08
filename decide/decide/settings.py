@@ -71,7 +71,7 @@ MODULES = [
     'voting',
 ]
 
-BASEURL = 'https://decide-part-sierrezuela-3.herokuapp.com'
+BASEURL = 'https://sierrezuela3-decide.herokuapp.com'
 
 APIS = {
     'authentication': BASEURL,
