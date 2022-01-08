@@ -36,14 +36,12 @@ jobs:
         pip install codacy-coverage
     - name: Run migrations
       run: cd decide;python manage.py migrate
-    - name: Run Visualizer tests
-      run: cd decide;./manage.py test visualizer/tests.py
     - name: run Census tests
       run: cd decide;./manage.py test census/tests.py
     - name: run Voting tests
       run: cd decide;./manage.py test voting/tests.py
-    - name: run Visualizer, Voting and Census tests withc coverage
-      run: cd decide;coverage run ./manage.py test visualizer/tests.py;coverage run ./manage.py test census/tests.py;coverage run ./manage.py test voting/tests.py; coverage xml;
+    - name: run Voting and Census tests withc coverage
+      run: cd decide;coverage run ./manage.py test census/tests.py;coverage run ./manage.py test voting/tests.py; coverage xml;
     - name: Codacy Coverage Reporter
       uses: codacy/codacy-coverage-reporter-action@v1.1.0
       with:
