@@ -8,7 +8,7 @@ urlpatterns = [
     path('create/', views.CensusCreate.as_view(), name='census_create'),
     path('<int:voting_id>/', views.CensusDetail.as_view(), name='census_detail'),
 
-    path('importar',views.CensusImport,name='census_import'),
+    # path('importar',views.CensusImport,name='census_import'), #no descomentar
 
 
 ]

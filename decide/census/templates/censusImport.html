@@ -9,7 +9,7 @@
 <br>
 
 
-<form action="/admin/census/importar" method="POST" enctype="multipart/form-data" target="_self">
+<form id="formImportCensus" action="/admin/census/importar" method="POST" enctype="multipart/form-data" target="_self">
 
     {% csrf_token %}
 
@@ -25,8 +25,8 @@
   
   </form>
 
-<h3 style=color:red>{{vacio}}</h3>
-<h3 style=color:green>{{importado}}</h3>
+<h3 id=vacioTest style=color:red>{{vacio}}</h3>
+<h3 id=importadoTest style=color:green>{{importado}}</h3>
 
     <table>
     <tr>

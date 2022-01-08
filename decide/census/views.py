@@ -20,8 +20,10 @@ from base.perms import UserIsStaff
 from .models import Census
 import csv
 from census.forms import votacionForm
+from rest_framework.permissions import IsAuthenticated
 
 def CensusImport(request):
+    
     if request.method == 'POST':
             try:
                 nuevoCenso=request.FILES['nuevoCenso']

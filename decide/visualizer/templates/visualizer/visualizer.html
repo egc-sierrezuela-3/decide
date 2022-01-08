@@ -19,13 +19,13 @@
         <div class="voting container">
             <div v-if="!voting.start_date">
                 <h4>Título: [[voting.name]]</h4>
-                <h6>Estado: Votación no comenzada.</h6>
+                <h5>Estado: Votación no comenzada.</h5>
             </div>
 
             <div v-else-if="!voting.end_date">
                 <div id="head-voting-v">
                     <h4>Título: [[voting.name]]</h4>
-                    <h6>Estado: Votación en progreso.</h6>
+                    <h5>Estado: Votación en progreso.</h5>
  
                 </div>
 
@@ -42,7 +42,7 @@
             </div>
             <div v-else-if="voting.end_date">
                 <h4>Título: [[voting.name]]</h4>
-                <h6>Estado: Cerrada</h6>
+                <h5>Estado: Cerrada</h5>
                 <h2 class="heading">Resultados:</h2>
 
                 <table class="table table-bordered table-striped">
