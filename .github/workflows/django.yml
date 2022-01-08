@@ -60,4 +60,4 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "sierrezuela3-decide"
           heroku_email: "sierrezueladecide3@gmail.com"
-    - run: heroku run -a egc-sierrezuela-3 sh -c "python decide/manage.py shell -c \"from django.contrib.auth.models import User; User.objects.filter(username='admin') or User.objects.create_superuser('admin', 'admin@example.com', 'admin')\""
+    - run: heroku run -a sierrezuela3-decide sh -c "python decide/manage.py shell -c \"from django.contrib.auth.models import User; User.objects.filter(username='admin') or User.objects.create_superuser('admin', 'admin@example.com', 'admin')\""
