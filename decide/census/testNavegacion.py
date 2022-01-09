@@ -6,6 +6,7 @@ from census import admin
 from authentication.models import Persona
 from .models import Census
 from base import mods
+from voting.models import Voting, Question
 from base.tests import BaseTestCase
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
@@ -25,6 +26,15 @@ class ImportCensus(StaticLiveServerTestCase):
 
         self.driver = webdriver.Chrome(options=options)
         self.vars = {}
+        self.user=User(id=2)
+        self.user.save()
+        self.question = Question(desc='qwerty')
+        self.question.save()
+        self.voting = Voting(id=2,
+                             name='voting example',
+                             question=self.question,
+        )
+        self.voting.save()
         self.census=Census(voting_id=1,voter_id=1)
         self.census.save()
 
@@ -33,6 +43,70 @@ class ImportCensus(StaticLiveServerTestCase):
         self.driver.quit()
 
         self.base.tearDown()
+    
+    def test_census_existente(self):
+        self.driver.get(f'{self.live_server_url}/admin/')
+        self.driver.find_element_by_id('id_username').send_keys("adminprueba")
+        self.driver.find_element_by_id('id_password').send_keys("qwerty",Keys.ENTER)
+
+        self.driver.find_element(By.LINK_TEXT, "Censuss").click()
+        self.driver.find_element(By.CSS_SELECTOR, ".addlink").click()
+        self.driver.find_element(By.ID, "id_voting_id").send_keys("1")
+        self.driver.find_element(By.ID, "id_voter_id").click()
+        self.driver.find_element(By.ID, "id_voter_id").send_keys("1")
+        self.driver.find_element(By.NAME, "_save").click()
+
+        mensaje = self.driver.find_element_by_class_name("errornote").text
+
+        self.assertEquals(mensaje, 'Please correct the errors below.')
+    
+    def test_census_positivo(self):
+        self.driver.get(f'{self.live_server_url}/admin/')
+        self.driver.find_element_by_id('id_username').send_keys("adminprueba")
+        self.driver.find_element_by_id('id_password').send_keys("qwerty",Keys.ENTER)
+
+        self.driver.find_element(By.LINK_TEXT, "Censuss").click()
+        self.driver.find_element(By.CSS_SELECTOR, ".addlink").click()
+        self.driver.find_element(By.ID, "id_voting_id").send_keys("2")
+        self.driver.find_element(By.ID, "id_voter_id").click()
+        self.driver.find_element(By.ID, "id_voter_id").send_keys("2")
+        self.driver.find_element(By.NAME, "_save").click()
+
+        mensaje = self.driver.find_element_by_class_name("success").text
+        
+        self.assertIn('successfully', mensaje)
+    
+    def test_census_negativo_voter(self):
+        self.driver.get(f'{self.live_server_url}/admin/')
+        self.driver.find_element_by_id('id_username').send_keys("adminprueba")
+        self.driver.find_element_by_id('id_password').send_keys("qwerty",Keys.ENTER)
+
+        self.driver.find_element(By.LINK_TEXT, "Censuss").click()
+        self.driver.find_element(By.CSS_SELECTOR, ".addlink").click()
+        self.driver.find_element(By.ID, "id_voting_id").send_keys("2")
+        self.driver.find_element(By.ID, "id_voter_id").click()
+        self.driver.find_element(By.ID, "id_voter_id").send_keys("999")
+        self.driver.find_element(By.NAME, "_save").click()
+
+        mensaje = self.driver.find_element_by_class_name("errornote").text
+
+        self.assertEquals(mensaje, 'Please correct the error below.')
+
+    def test_census_negativo_voting(self):
+        self.driver.get(f'{self.live_server_url}/admin/')
+        self.driver.find_element_by_id('id_username').send_keys("adminprueba")
+        self.driver.find_element_by_id('id_password').send_keys("qwerty",Keys.ENTER)
+
+        self.driver.find_element(By.LINK_TEXT, "Censuss").click()
+        self.driver.find_element(By.CSS_SELECTOR, ".addlink").click()
+        self.driver.find_element(By.ID, "id_voting_id").send_keys("12")
+        self.driver.find_element(By.ID, "id_voter_id").click()
+        self.driver.find_element(By.ID, "id_voter_id").send_keys("2")
+        self.driver.find_element(By.NAME, "_save").click()
+
+        mensaje = self.driver.find_element_by_class_name("errornote").text
+
+        self.assertEquals(mensaje, 'Please correct the error below.')
 
 
     #ESTE TEST DEBE CORRER EN EL SELENIUM IDE, el cual debe tener activada la opción "Allow access to file URLs"

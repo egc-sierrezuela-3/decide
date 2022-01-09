@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% load i18n static %}
 
 {% block extrahead %}
     <link type="text/css" rel="stylesheet"
@@ -91,12 +90,13 @@
         var ctx = document.getElementById('graficoPorcentajeVotaciones').getContext('2d');
         var a1="{{stats_census_size}}";
         var a2="{{stats_voters_turnout}}";
+        var a3=a1-a2;
         
         var chart = new Chart(ctx, {
             type: 'doughnut',
             data:{
             datasets: [{
-                data: [a1,a2],
+                data: [a3,a2],
                 backgroundColor: [ 'red','blue'],
                 label: 'Estado de la votación'}],
                 labels: ['Número de personas que han votado','Número de personas que no han votado']},

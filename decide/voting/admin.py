@@ -7,7 +7,6 @@ from .models import Voting
 
 from .filters import StartedFilter
 
-
 def start(modeladmin, request, queryset):
     for v in queryset.all():
         v.create_pubkey()

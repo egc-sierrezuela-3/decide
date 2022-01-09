@@ -1,9 +1,10 @@
+from django.contrib.auth.models import User
 from django.db.utils import IntegrityError
 from django.core.exceptions import ObjectDoesNotExist
 
 from django.shortcuts import render
 from django import forms
-
+from voting.models import Voting
 from django.http import HttpResponse
 
 from rest_framework import generics
@@ -27,6 +28,7 @@ def CensusImport(request):
     if request.method == 'POST':
             try:
                 nuevoCenso=request.FILES['nuevoCenso']
+                print(type(nuevoCenso))
                 votantes=[]
                 votaciones=[]
                 for row in nuevoCenso:
@@ -35,14 +37,13 @@ def CensusImport(request):
                     votacion=str(parse[1][:-1])
                     votantes.append(votante)
                     votaciones.append(votacion)
-
                     try:
-                        Census.objects.update_or_create(
+                         censo = Census.objects.update_or_create(
                             voting_id=int(votacion),
                             voter_id=int(votante),
                         )
                     except:
-                        return render(request,'censusImport.html',{'votantes':votantes,'votaciones':votaciones,'noimportado':'Ha habido un error'})
+                        return render(request,'censusImport.html',{'votantes':votantes,'votaciones':votaciones,'noimportado':'El contenido del fichero tiene datos incorrectos, compruébelo'})
                
                 return render(request,'censusImport.html',{'votantes':votantes,'votaciones':votaciones,'importado':'Los datos se han cargado correctamente'})
 
