@@ -8,7 +8,6 @@ from .models import Census
 from base import mods
 from base.tests import BaseTestCase
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from selenium import webdriver
 import csv
 
 class CensusTestCase(BaseTestCase):
